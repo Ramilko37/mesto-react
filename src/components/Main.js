@@ -9,6 +9,8 @@ function Main(props) {
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setInitialCards] = React.useState([]);
 
+  const errHandler = err => console.log(err);
+
   React.useEffect(() => {
     api.getUserInfo()
       .then(profileInfoData => {
@@ -16,11 +18,13 @@ function Main(props) {
         setUserDescription(profileInfoData.about);
         setUserAvatar(profileInfoData.avatar);
       })
+      .catch(errHandler);
 
   api.getInitialCards()
   .then(initialCards => {
     setInitialCards(initialCards)
   })
+  .catch(errHandler)
 }, [])
 
 
