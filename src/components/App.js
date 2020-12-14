@@ -5,6 +5,7 @@ import ImagePopup from './ImagePopup';
 import '../index.css';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function App() {
 
@@ -29,12 +30,23 @@ function App() {
     setSelectedCard(undefined)
   }
 
+  const [currentUser, setCurrentUser] = React.useState(false)
+
+React.useEffect(() => {
+    api.getUserInfo()
+      .then(data => {
+        setCurrentUser(data);
+        
+      })
+      .catch(errHandler);
 
   return (
-    <div className="page">
+
+<CurrentUserContext>
+<div className="page">
    <div className="page__container">
     
-    
+   
   <Header/>
   <Main 
   onEditProfile={handleEditProfileClick}
@@ -90,6 +102,10 @@ function App() {
        
    </div>
    </div>
+
+</CurrentUserContext> 
+
+    
   );
 }
 

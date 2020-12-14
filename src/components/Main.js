@@ -1,6 +1,8 @@
 import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 
 function Main(props) {
@@ -8,6 +10,7 @@ function Main(props) {
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setInitialCards] = React.useState([]);
+  const currentUser = React.useContext(CurrentUserContext);
 
   const errHandler = err => console.log(err);
 
