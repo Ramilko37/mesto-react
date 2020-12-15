@@ -1,13 +1,15 @@
 import React from 'react';
+import api from '../utils/api.js';
 import Header from './Header';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import '../index.css';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
-import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
+
 
 
   
@@ -21,7 +23,10 @@ function App() {
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
 
   const [selectedCard, setSelectedCard] = React.useState(undefined);
-  const handleCardClick = (card) => setSelectedCard(card)
+  const handleCardClick = (card) => setSelectedCard(card);
+
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   const closePopups = () => {
     setIsEditProfilePopupOpen(false);
@@ -30,23 +35,21 @@ function App() {
     setSelectedCard(undefined)
   }
 
-  const [currentUser, setCurrentUser] = React.useState(false)
-
-React.useEffect(() => {
-    api.getUserInfo()
-      .then(data => {
-        setCurrentUser(data);
-        
+  React.useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cardData]) => {
+        setCurrentUser(userData);
+        setCards(cardData);
       })
-      .catch(errHandler);
+      .catch(err => console.log(err));
+  }, []);
 
   return (
-
-<CurrentUserContext>
+   <CurrentUserContext.Provider value={currentUser}>
 <div className="page">
    <div className="page__container">
     
-   
+    
   <Header/>
   <Main 
   onEditProfile={handleEditProfileClick}
@@ -103,11 +106,11 @@ React.useEffect(() => {
    </div>
    </div>
 
-</CurrentUserContext> 
 
+   </CurrentUserContext.Provider>
     
   );
 }
-
+  
 
 export default App;
