@@ -126,18 +126,20 @@ class Api {
   }
 
   //обновить аватар
-  refreshAvatar(data) {
+  setUserAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
         method: 'PATCH',
         headers: this._headers,
-        body: JSON.stringify({
-          avatar: data.url,
-        })
+        body: JSON.stringify({ avatar: data.avatar })
       })
       .then(resHandler)
     
   }
 }
+
+
+
+
 
 
 const api = new Api({
