@@ -23,12 +23,12 @@ function handleDeleteCard() { props.onCardDelete(props.card); }
     return(
         <CurrentUserContext.Provider value={currentUser}>
         <div className="location" > 
-        <button type="button" className="location__delete" onClick={handleDeleteCard}/>
+        <button type="button" className={cardDeleteButtonClassName} onClick={handleDeleteCard}/>
         <img className="location__image" onClick={handleClick} src={props.card.link} alt={`Картинка ${props.card.name}`}/>
         <div className="location__description">
         <h2 className="location__title">{props.card.name}</h2>
             <div className="location__like-container">
-                <button type="button" className="location__like" onClick={handleLikeClick}/>
+                <button type="button" className={cardLikeButtonClassName} onClick={handleLikeClick}/>
                 <span className="location__like-counter">{props.card.likes.length}</span>
             </div>
         </div>

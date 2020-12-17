@@ -5,11 +5,9 @@ import Main from "./Main";
 import ImagePopup from "./ImagePopup";
 import "../index.css";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import CurrentUserContext from "./../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup.js";
-import Card from "./Card";
 import AddPlacePopup from "./AddPlacePopup.js";
 
 function App() {
