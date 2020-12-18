@@ -42,9 +42,9 @@ function App() {
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, card]) => {
+      .then(([userData, cards]) => {
         setCurrentUser(userData);
-        setCards(card);
+        setCards(cards);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -55,6 +55,9 @@ function App() {
     api.like(card._id, !isLiked).then((newCard) => {
       const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
       setCards(newCards);
+    })
+    .catch((err) => {
+      console.log(`Ошибка лайка карточки ${err}`);
     });
   }
 
@@ -66,7 +69,7 @@ function App() {
         setCards(newCards);
       })
       .catch((err) => {
-        console.log(`Ошибка`);
+        console.log(`Ошибка удаления карточки ${err}`);
       });
   }
 
@@ -78,7 +81,7 @@ function App() {
         closePopups();
       })
       .catch((err) => {
-        console.log(`Ошибка обновления данных пользователя. ${err}`);
+        console.log(`Ошибка обновления данных пользователя ${err}`);
       });
   }
 
@@ -90,7 +93,7 @@ function App() {
         closePopups();
       })
       .catch((err) =>
-        console.log(`Ошибка при замене аватара пользователя: ${err}`)
+        console.log(`Ошибка при замене аватара пользователя ${err}`)
       );
   }
 
@@ -102,7 +105,7 @@ function App() {
         setCards([newCard, ...cards]);
         closePopups();
       })
-      .catch((err) => console.log(`Ошибка `));
+      .catch((err) => console.log(`Ошибка при добавлении новой карточки ${err}`));
   }
 
   return (

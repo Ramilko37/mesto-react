@@ -40,6 +40,7 @@ function EditProfilePopup(props) {
       <div>
         <input
           name="name"
+          value={name}
           placeholder="Введите текст"
           type="text"
           required
@@ -51,6 +52,7 @@ function EditProfilePopup(props) {
         <span className="popup__error" id="name-error" />
         <input
           name="job"
+          value={description}
           placeholder="Введите текст"
           type="text"
           required
